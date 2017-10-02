@@ -178,10 +178,14 @@ public class ZipkinSpanListener implements SpanReporter {
 
 	private void setInstanceIdIfPresent(zipkin.Span.Builder zipkinSpan,
 			Endpoint endpoint, String key) {
-		String property = IdUtils.getDefaultInstanceId(this.environment);
+		String property = defaultInstanceId();
 		if (StringUtils.hasText(property)) {
 			addZipkinBinaryAnnotation(key, property, endpoint, zipkinSpan);
 		}
+	}
+
+	String defaultInstanceId() {
+		return IdUtils.getDefaultInstanceId(this.environment);
 	}
 
 	/**
